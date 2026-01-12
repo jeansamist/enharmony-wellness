@@ -3,6 +3,7 @@ import { CaretDownIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FunctionComponent, useMemo } from "react";
+import { Button } from "./ui/button";
 
 export const Topbar: FunctionComponent = () => {
   const LINKS = useMemo(
@@ -41,7 +42,7 @@ export const Topbar: FunctionComponent = () => {
             height={30}
           />
         </Link>
-        <div className="flex gap-6">
+        <div className="flex gap-6 items-center">
           {LINKS.map((link) => (
             <div key={link.href} className="relative group">
               <Link
@@ -66,6 +67,12 @@ export const Topbar: FunctionComponent = () => {
               )}
             </div>
           ))}
+          <Button variant="outline" href="/#newsletter">
+            Subscribe
+          </Button>
+          <Button variant="primary" href="/get-started">
+            Sign in
+          </Button>
         </div>
       </div>
     </div>
