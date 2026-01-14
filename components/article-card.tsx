@@ -5,17 +5,29 @@ import Link from "next/link";
 import { FunctionComponent } from "react";
 
 export type ArticleCardProps = {
-  type?: "featured" | "video";
+  type: "text" | "video";
+  cover: string;
+  category: string;
+  read_time: string;
+  description: string;
+  title: string;
+  slug: string;
 };
 
 export const ArticleCard: FunctionComponent<ArticleCardProps> = ({
-  type = "featured",
+  type,
+  cover,
+  category,
+  read_time,
+  description,
+  title,
+  slug,
 }) => {
   return (
     <div className="">
       <div className="relative">
         <Image
-          src={"/article-cover.png"}
+          src={cover}
           alt="Article Cover"
           width={376}
           height={211.5}
@@ -30,19 +42,14 @@ export const ArticleCard: FunctionComponent<ArticleCardProps> = ({
         )}
       </div>
       <div className="p-4 space-y-2">
-        <div className="opacity-70 leading-normal">Wellness • 6 min read</div>
-        <div className="leading-normal font-bold text-xl">
-          The Art of Daily Healing: Small Practices That Support Mind
+        <div className="opacity-70 leading-normal">
+          {category} • {read_time} min read
         </div>
-        <div className="leading-normal opacity-70">
-          Healing does not always arrive through dramatic change. Often, it
-          grows quietly through small, repeated practices that support
-          awareness, balance, and a more responsive relationship with the body
-          and mind.
-        </div>
+        <div className="leading-normal font-bold text-xl">{title}</div>
+        <div className="leading-normal opacity-70">{description}</div>
 
         <Link
-          href="/articles/the-art-of-daily-healing"
+          href={`/articles/${slug}`}
           className="flex items-center leading-none underline font-semibold gap-2 text-primary"
         >
           Read more
