@@ -29,7 +29,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
       <Link
         href={href}
         className={cn(
-          `px-6 py-4 h-12 rounded-full font-semibold hover:opacity-90 transition-opacity flex items-center justify-center leading-none`,
+          `px-6 py-4 h-12 rounded-full font-semibold hover:opacity-90 transition-opacity flex items-center justify-center leading-none disabled:opacity-50`,
           variantClasses[variant],
           className
         )}

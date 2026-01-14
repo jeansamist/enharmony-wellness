@@ -81,7 +81,7 @@ export const Topbar: FunctionComponent = () => {
             <Button variant="outline" href="/#newsletter">
               Subscribe
             </Button>
-            <Button variant="primary" href="/get-started">
+            <Button variant="primary" href="/auth/sign-in">
               Sign in
             </Button>
           </div>
@@ -153,7 +153,7 @@ export const Topbar: FunctionComponent = () => {
                 </Button>
                 <Button
                   variant="primary"
-                  href="/get-started"
+                  href="/auth/sign-in"
                   className="w-full justify-center"
                 >
                   Sign in
