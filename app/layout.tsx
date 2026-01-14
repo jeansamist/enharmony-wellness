@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { Topbar } from "@/components/topbar";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={`${fontSans.variable} font-sans antialiased`}>
         <Topbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
