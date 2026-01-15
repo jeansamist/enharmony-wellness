@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FunctionComponent } from "react";
 
 export type ButtonProps = {
-  variant?: "primary" | "secondary" | "tertiary" | "outline";
+  variant?: "primary" | "secondary" | "tertiary" | "outline" | "ghost";
   children: React.ReactNode;
   href?: string;
   className?: string;
@@ -22,6 +22,8 @@ export const Button: FunctionComponent<ButtonProps> = ({
     secondary: "bg-secondary text-primary",
     tertiary: "bg-tertiary text-primary",
     outline: "border border-primary text-primary",
+    ghost:
+      "bg-transparent text-tertiary/70 hover:text-tertiary hover:bg-tertiary/5",
   };
 
   if (href) {
@@ -29,7 +31,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
       <Link
         href={href}
         className={cn(
-          `px-6 py-4 h-12 rounded-full font-semibold hover:opacity-90 transition-opacity flex items-center justify-center leading-none disabled:opacity-50`,
+          `px-6 py-4 h-12 rounded-full font-semibold hover:opacity-90 transition-all flex items-center justify-center leading-none disabled:opacity-50`,
           variantClasses[variant],
           className
         )}

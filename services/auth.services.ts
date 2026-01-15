@@ -25,7 +25,7 @@ export const signIn = async (email: string, password: string) => {
   (await cookies()).set("AUTH_TOKEN", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    expires: new Date(Date.now() + 60 * 60 * 24 * 30), // 30 days
+    expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000), // 30 days
   });
   await generatePassword(email); // Regenerate password after sign in
   return { token };
@@ -80,4 +80,32 @@ export const isAuthenticated = async () => {
     console.error(error);
     return false;
   }
+};
+
+export const getAuthenticatedUser = async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("AUTH_TOKEN")?.value;
+
+  if (!token) {
+    return null;
+  }
+  try {
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET is not defined in environment variables");
+    }
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET
+    ) as JwtPayloadWithUserId;
+    const user = await getUserById(decoded.userId);
+    return user;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const signOut = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("AUTH_TOKEN");
 };
