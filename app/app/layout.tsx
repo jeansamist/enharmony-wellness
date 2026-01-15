@@ -11,11 +11,11 @@ export default async function Layout({
   const user = await getAuthenticatedUser();
   return (
     <AuthProvider initialUser={user}>
-      <div className="min-h-screen flex">
+      <div className="h-screen flex">
         <Sidebar />
-        <main className="flex-1 flex flex-col">
+        <main className="flex-1">
           <AppTopbar />
-          <div className="flex-1 w-full overflow-y-auto p-6 md:p-12 pb-0">
+          <div className="h-[calc(100vh-6rem)] w-full overflow-y-auto px-6 md:px-12">
             {children}
           </div>
         </main>

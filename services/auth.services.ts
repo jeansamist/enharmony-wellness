@@ -1,5 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
+import { addDays } from "date-fns";
 import * as jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
@@ -19,13 +20,13 @@ export const signIn = async (email: string, password: string) => {
   }
   // GENERATE A JWT TOKEN
   const token = jwt.sign({ userId: Number(user?.id) }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "30d",
   });
 
   (await cookies()).set("AUTH_TOKEN", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000), // 30 days
+    expires: addDays(new Date(), 30), // 30 days
   });
   await generatePassword(email); // Regenerate password after sign in
   return { token };
@@ -108,4 +109,28 @@ export const getAuthenticatedUser = async () => {
 export const signOut = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("AUTH_TOKEN");
+};
+
+export const isCurrentUserReviewer = async (id: number) => {
+  const user = await getAuthenticatedUser();
+  if (user?.role !== "reviewer") {
+    return false;
+  }
+  return true;
+};
+
+export const isCurrentUserAdmin = async () => {
+  const user = await getAuthenticatedUser();
+  if (user?.role !== "admin") {
+    return false;
+  }
+  return true;
+};
+
+export const canCreatePost = async () => {
+  const user = await getAuthenticatedUser();
+  if (user?.role === "reviewer") {
+    return false;
+  }
+  return true;
 };

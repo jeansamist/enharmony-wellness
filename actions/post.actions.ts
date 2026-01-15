@@ -1,0 +1,81 @@
+"use server";
+import { createCategorySchema, createPostSchema } from "@/schemas/post.schemas";
+import { isCurrentUserAdmin } from "@/services/auth.services";
+import {
+  createCategory,
+  createPost,
+  createReview,
+} from "@/services/post.services";
+import { redirect } from "next/navigation";
+import { canCreatePost } from "./../services/auth.services";
+
+export const createPostAction = async (formData: FormData) => {
+  const canCreatePost_ = await canCreatePost();
+  if (!canCreatePost_) {
+    return {
+      error: "You are not authorized to create a post",
+    };
+  }
+  console.log("Post creation", formData);
+
+  const validatedFields = createPostSchema.safeParse({
+    title: formData.get("title"),
+    content: formData.get("content"),
+    category: formData.get("category"),
+    description: formData.get("description"),
+    reviewer: formData.get("reviewer"),
+    cover: formData.get("cover"),
+    read_time: formData.get("read_time"),
+    video_url: formData.get("video_url"),
+    slug: formData.get("slug"),
+    type: formData.get("type"),
+  });
+
+  console.log("safe data", validatedFields.error);
+  if (!validatedFields.success) {
+    return {
+      error: "Invalid input",
+    };
+  }
+
+  const data = {
+    title: validatedFields.data.title,
+    content: validatedFields.data.content,
+    category_id: validatedFields.data.category,
+    description: validatedFields.data.description,
+    cover: validatedFields.data.cover,
+    read_time: validatedFields.data.read_time,
+    video_url: validatedFields.data.video_url,
+    slug: validatedFields.data.slug,
+    type: validatedFields.data.type,
+  };
+
+  const post = await createPost(data);
+  await createReview({
+    post_id: post.id,
+    user_id: validatedFields.data.reviewer,
+  });
+  redirect("/app/posts");
+};
+export const createCategoryAction = async (formData: FormData) => {
+  const isAdmin = await isCurrentUserAdmin();
+  if (!isAdmin) {
+    return {
+      error: "You are not authorized to create a user",
+    };
+  }
+  const validatedFields = createCategorySchema.safeParse({
+    name: formData.get("name"),
+  });
+  if (!validatedFields.success) {
+    return {
+      error:
+        validatedFields.error.flatten().fieldErrors.email?.[0] ||
+        "Invalid input",
+    };
+  }
+
+  const { name } = validatedFields.data;
+  await createCategory(name);
+  redirect("/app/settings/categories");
+};

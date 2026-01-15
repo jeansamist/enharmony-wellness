@@ -21,3 +21,51 @@ body {
   color: var(--foreground);
   font-family: "DM Sans", sans-serif;
 }
+.tiptap {
+  p {
+    @apply my-4 first:mt-0 last:mb-0 text-base text-tertiary/70 leading-relaxed;
+  }
+
+  h1 {
+    @apply text-3xl font-bold mt-8 mb-4 first:mt-0 last:mb-0;
+  }
+
+  h2 {
+    @apply text-2xl font-bold mt-6 mb-2 first:mt-0 last:mb-0;
+  }
+
+  h3 {
+    @apply text-xl font-bold mt-4 mb-1 first:mt-0 last:mb-0;
+  }
+
+  h4 {
+    @apply text-lg font-bold mt-2 mb-1 first:mt-0 last:mb-0;
+  }
+
+  h5 {
+    @apply text-base font-bold mt-2 mb-1 first:mt-0 last:mb-0;
+  }
+
+  h6 {
+    @apply text-sm font-bold mt-2 mb-1 first:mt-0 last:mb-0;
+  }
+
+  b,
+  strong {
+    @apply font-bold text-tertiary!;
+  }
+
+  a {
+    @apply underline text-primary font-semibold;
+  }
+
+  code {
+    @apply bg-tertiary rounded-xl px-2 py-1 text-secondary;
+  }
+  i {
+    @apply italic;
+  }
+  hr {
+    @apply border-tertiary/10;
+  }
+}
