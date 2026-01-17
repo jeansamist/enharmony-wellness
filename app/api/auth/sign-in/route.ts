@@ -1,5 +1,5 @@
 import { signIn } from "@/services/auth.services";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -7,15 +7,15 @@ export async function GET(request: Request) {
   const code = searchParams.get("code");
 
   if (!email || !code) {
-    redirect("/");
+    redirect("/", RedirectType.push);
   }
 
   const resp = await signIn(email, code);
 
   if (resp) {
-    redirect("/app/dashboard");
+    redirect("/app/dashboard", RedirectType.push);
   } else {
-    redirect("/auth/sign-in?error=Invalid credentials");
+    redirect("/auth/sign-in?error=Invalid credentials", RedirectType.push);
   }
 }
 

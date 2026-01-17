@@ -1,7 +1,7 @@
 import { createUserSchema } from "@/schemas/user.schemas";
 import { isCurrentUserAdmin } from "@/services/auth.services";
 import { createUser } from "@/services/user.services";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 
 export const createUserAction = async (formData: FormData) => {
   const isAdmin = await isCurrentUserAdmin();
@@ -24,6 +24,6 @@ export const createUserAction = async (formData: FormData) => {
   }
 
   const { email, full_name, role } = validatedFields.data;
-  const user = await createUser({ email, full_name, role });
-  redirect("/app/users");
+  await createUser({ email, full_name, role });
+  redirect("/app/users", RedirectType.push);
 };

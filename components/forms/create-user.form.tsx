@@ -1,6 +1,5 @@
 "use client";
 import { createUserAction } from "@/actions/user.actions";
-import { redirect } from "next/dist/server/api-utils";
 import { FunctionComponent, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -17,7 +16,6 @@ export const CreateUserForm: FunctionComponent = () => {
       setError(response.error);
       return;
     }
-    redirect("/app/users");
   };
   return (
     <form className="space-y-6" action={handleSubmit}>
@@ -33,7 +31,6 @@ export const CreateUserForm: FunctionComponent = () => {
         <Label htmlFor="role">Role</Label>
         <Select
           name="role"
-          placeholder="Select a role"
           options={[
             { value: "reviewer", label: "Reviewer" },
             { value: "writer", label: "Writer" },

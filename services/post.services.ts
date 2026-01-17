@@ -92,6 +92,62 @@ export const getPosts = async () => {
   });
   return posts;
 };
+
+export const getJustIn = async () => {
+  const posts = await prisma.post.findMany({
+    where: {
+      published: true,
+    },
+    include: {
+      category: true,
+      user: true,
+      reviews: {
+        include: {
+          user: true,
+        },
+      },
+    },
+    orderBy: {
+      created_at: "desc",
+      views: "desc",
+    },
+  });
+  return posts;
+};
+
+export const getPostsByCategory = async (category: string) => {
+  const posts = await prisma.post.findMany({
+    where: {
+      published: true,
+      category: {
+        name: category,
+      },
+    },
+    include: {
+      category: true,
+      user: true,
+      reviews: {
+        include: {
+          user: true,
+        },
+      },
+    },
+    orderBy: {
+      created_at: "desc",
+      views: "desc",
+    },
+  });
+  return posts;
+};
+
+export const publishPost = async (id: number) => {
+  const post = await prisma.post.update({
+    where: { id },
+    data: { published: true },
+  });
+  return post;
+};
+
 export const getPostBySlug = async (slug: string) => {
   const user = await getAuthenticatedUser();
   const post = await prisma.post.findFirst({

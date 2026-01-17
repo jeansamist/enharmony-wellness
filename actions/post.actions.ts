@@ -6,7 +6,7 @@ import {
   createPost,
   createReview,
 } from "@/services/post.services";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 import { canCreatePost } from "./../services/auth.services";
 
 export const createPostAction = async (formData: FormData) => {
@@ -55,7 +55,7 @@ export const createPostAction = async (formData: FormData) => {
     post_id: Number(post.id),
     user_id: validatedFields.data.reviewer,
   });
-  redirect("/app/posts");
+  redirect("/app/posts", RedirectType.push);
 };
 export const createCategoryAction = async (formData: FormData) => {
   const isAdmin = await isCurrentUserAdmin();
@@ -77,5 +77,5 @@ export const createCategoryAction = async (formData: FormData) => {
 
   const { name } = validatedFields.data;
   await createCategory(name);
-  redirect("/app/settings/categories");
+  redirect("/app/settings/categories", RedirectType.push);
 };
