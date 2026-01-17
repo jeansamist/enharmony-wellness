@@ -85,8 +85,8 @@ export const Footer: FunctionComponent = () => {
                   placeholder="Enter your email"
                   className="px-6 py-4 h-12 rounded-full font-semibold hover:opacity-90 transition-opacity flex items-center justify-center leading-none w-full text-secondary bg-secondary/15 border border-secondary/40 focus:outline-none focus:ring-2 focus:ring-secondary/50 placeholder:text-secondary/70"
                 />
-                <Button variant="secondary" className="text-tertiary">
-                  Subscribe
+                <Button variant="primary" className="text-tertiary">
+                  Sign up
                 </Button>
               </div>
             </div>
