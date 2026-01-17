@@ -92,7 +92,6 @@ export const getPosts = async () => {
   });
   return posts;
 };
-
 export const getPostBySlug = async (slug: string) => {
   const user = await getAuthenticatedUser();
   const post = await prisma.post.findFirst({
@@ -106,6 +105,13 @@ export const getPostBySlug = async (slug: string) => {
   // Check if the post is approved and if the user is authorized to view it. Only published posts are visible by default for everyone
   if (post) {
     if (post.published) {
+      if (!user) {
+        post.views += 1;
+        await prisma.post.update({
+          where: { id: post.id },
+          data: { views: post.views },
+        });
+      }
       return post;
     }
     if (user) {
@@ -127,6 +133,6 @@ export const getPostBySlug = async (slug: string) => {
 
 export const deletePostBySlug = async (slug: string) => {
   const post = getPostBySlug(slug);
-  
+
   const user = await getAuthenticatedUser();
 };
