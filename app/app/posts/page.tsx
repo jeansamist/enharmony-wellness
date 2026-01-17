@@ -1,9 +1,11 @@
 import { PostCard } from "@/components/post-card";
 import { Button } from "@/components/ui/button";
+import { getAuthenticatedUser } from "@/services/auth.services";
 import { getPosts } from "@/services/post.services";
 
 export default async function page() {
   const posts = await getPosts();
+  const user = await getAuthenticatedUser();
   return (
     <div className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 xl:space-y-16 pt-6">
       <div className="container mx-auto space-y-6">
@@ -23,6 +25,7 @@ export default async function page() {
               author={post.user.full_name}
               reviewer={post.reviews[0]?.user.full_name}
               slug={post.slug}
+              currentUser={user}
             />
           ))}
         </div>

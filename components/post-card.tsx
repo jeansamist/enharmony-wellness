@@ -94,12 +94,14 @@ export const PostCard: FunctionComponent<PostCardProps> = ({
           >
             Read
           </Link>
-          <Link
-            href={`/app/posts/${slug}/publish`}
-            className="flex items-center leading-none underline font-semibold gap-2 text-primary"
-          >
-            Publish
-          </Link>
+          {currentUser && currentUser.role === "admin" && (
+            <Link
+              href={`/app/posts/${slug}/publish`}
+              className="flex items-center leading-none underline font-semibold gap-2 text-primary"
+            >
+              Publish
+            </Link>
+          )}
         </div>
       </div>
     </div>
