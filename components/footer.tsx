@@ -20,7 +20,7 @@ export const Footer: FunctionComponent = () => {
                   alt={"EnHarmony Wellness Logo"}
                   width={240}
                   height={30}
-                  className="w-40 md:w-60 h-auto" // Responsive logo sizing
+                  className="w-60 h-auto" // Responsive logo sizing
                 />
               </Link>
               <div className="text-xl font-bold leading-normal">
