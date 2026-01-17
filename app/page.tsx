@@ -13,7 +13,7 @@ export default async function Home() {
     <main className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 xl:space-y-16">
       <Featured />
       <JustIn
-        posts={posts.map((post) => ({
+        posts={posts.slice(0, 4).map((post) => ({
           category: post.category.name,
           cover: post.cover,
           description: post.description,
@@ -25,7 +25,17 @@ export default async function Home() {
       />
       <ExploreBy />
       <WatchAndLearn />
-      <Recommended />
+      <Recommended
+        posts={posts.slice(5, 7).map((post) => ({
+          category: post.category.name,
+          cover: post.cover,
+          description: post.description,
+          read_time: post.read_time.toString(),
+          slug: post.slug,
+          title: post.title,
+          type: post.type,
+        }))}
+      />
       <Subscribe />
     </main>
   );
