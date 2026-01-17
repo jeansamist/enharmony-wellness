@@ -93,7 +93,7 @@ export const Footer: FunctionComponent = () => {
           </div>
           <div className="flex gap-4"></div>
           <div className="opacity-70 text-sm">
-            © Enharmony Wellness. A media brand by Enharmony.  <br />  <br /> Content on Enharmony Wellness is
+            © Enharmony Wellness. A media brand by Enharmony. <br /> Content on Enharmony Wellness is
             for educational purposes only. Some articles are medically reviewed
             and are not intended as medical advice, diagnosis, or treatment.
           </div>
