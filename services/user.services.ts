@@ -11,7 +11,11 @@ export const getUserById = async (id: number) => {
   return user;
 };
 
-export const createUser = async (data: unknown) => {
+export const createUser = async (data: {
+  email: string;
+  full_name: string;
+  role: string;
+}) => {
   const length = 12;
   const charset =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

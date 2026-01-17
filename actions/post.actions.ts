@@ -41,18 +41,18 @@ export const createPostAction = async (formData: FormData) => {
   const data = {
     title: validatedFields.data.title,
     content: validatedFields.data.content,
-    category_id: validatedFields.data.category,
+    category_id: BigInt(validatedFields.data.category),
     description: validatedFields.data.description,
     cover: validatedFields.data.cover,
     read_time: validatedFields.data.read_time,
-    video_url: validatedFields.data.video_url,
+    video_url: validatedFields.data.video_url || null,
     slug: validatedFields.data.slug,
     type: validatedFields.data.type,
   };
 
   const post = await createPost(data);
   await createReview({
-    post_id: post.id,
+    post_id: Number(post.id),
     user_id: validatedFields.data.reviewer,
   });
   redirect("/app/posts");
@@ -70,7 +70,7 @@ export const createCategoryAction = async (formData: FormData) => {
   if (!validatedFields.success) {
     return {
       error:
-        validatedFields.error.flatten().fieldErrors.email?.[0] ||
+        validatedFields.error.flatten().fieldErrors.name?.[0] ||
         "Invalid input",
     };
   }

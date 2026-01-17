@@ -44,6 +44,12 @@ export type PostEditorProps = {
   categories: Category[];
   reviewers: User[];
   description: string;
+  default_cover?: string;
+  default_slug?: string;
+  default_video_url?: string;
+  default_type?: "text" | "video";
+  default_category?: Category;
+  default_reviewer?: User;
 };
 
 // Typage des nodes Tiptap
@@ -58,7 +64,7 @@ type SummaryProps = {
   editor: Editor;
 };
 
-export const Summary: React.FC<SummaryProps> = ({ editor }) => {
+const Summary: React.FC<SummaryProps> = ({ editor }) => {
   const state = useEditorState({
     editor,
     selector: (ctx) => ctx.editor.getJSON() as TiptapNode,
@@ -377,6 +383,12 @@ export const PostEditor: FunctionComponent<PostEditorProps> = ({
   categories,
   reviewers,
   description,
+  default_cover,
+  default_video_url,
+  default_slug,
+  default_type,
+  default_category,
+  default_reviewer,
 }) => {
   const [title_, setTitle] = useState(title);
   const [description_, setDescription] = useState(description);
@@ -454,7 +466,13 @@ export const PostEditor: FunctionComponent<PostEditorProps> = ({
   });
 
   const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [defautl_slug_, setDefaultSlug] = useState(default_slug);
   const slug = useMemo(() => {
+    // handle the default slug and if the title updates ignore the default slug
+    if (defautl_slug_ !== "") {
+      setDefaultSlug("");
+      return default_slug;
+    }
     const length = 12;
     const charset = "123456789";
     let code = "";
@@ -463,11 +481,10 @@ export const PostEditor: FunctionComponent<PostEditorProps> = ({
       code += charset.charAt(Math.floor(Math.random() * n));
     }
     return title_.replace(/ /g, "-").toLowerCase().concat(`-${code}`);
-  }, [title_]);
-
+  }, [default_slug, defautl_slug_, title_]);
   const [error, setError] = useState<string | null>(null);
   const coverImageRef = useRef<HTMLInputElement>(null);
-  const [coverImage, setCoverImage] = useState("");
+  const [coverImage, setCoverImage] = useState(default_cover);
   const handleSubmit = async (formData: FormData) => {
     setError(null);
     const response = await createPostAction(formData);
@@ -498,6 +515,7 @@ export const PostEditor: FunctionComponent<PostEditorProps> = ({
                 <Label htmlFor="category">Category</Label>
                 <Select
                   name="category"
+                  defaultValue={default_category?.id.toString()}
                   options={categories.map((c) => ({
                     label: c.name,
                     value: c.id.toString(),
@@ -508,6 +526,7 @@ export const PostEditor: FunctionComponent<PostEditorProps> = ({
                 <Label htmlFor="reviewer">Reviewer</Label>
                 <Select
                   name="reviewer"
+                  defaultValue={default_reviewer?.id.toString()}
                   options={reviewers.map((r) => ({
                     label: r.full_name,
                     value: r.id.toString(),
@@ -518,6 +537,7 @@ export const PostEditor: FunctionComponent<PostEditorProps> = ({
                 <Label htmlFor="type">Type</Label>
                 <Select
                   name="type"
+                  defaultValue={default_type}
                   options={[
                     { value: "video", label: "Video post" },
                     {
@@ -529,7 +549,11 @@ export const PostEditor: FunctionComponent<PostEditorProps> = ({
               </div>
               <div className="space-y-2">
                 <Label htmlFor="video_url">Video URL</Label>
-                <Input name="video_url" placeholder="Paste the video URL" />
+                <Input
+                  name="video_url"
+                  defaultValue={default_video_url}
+                  placeholder="Paste the video URL"
+                />
               </div>
               <div className="space-y-2">
                 <Button type="submit" className="w-full">

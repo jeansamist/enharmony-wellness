@@ -51,9 +51,9 @@ export const uploadImage = async (file: File): Promise<string> => {
   }
 
   const data = (await response.json()) as ImageResponse;
-  console.log(await getImageUrl(data.url));
+  console.log(await getImageUrl(data.url || ""));
 
-  return getImageUrl(data.url);
+  return getImageUrl(data.url || "");
 };
 
 // 3. Delete Image (Requires API key)
@@ -83,22 +83,6 @@ export const deleteImage = async (filename: string): Promise<ImageResponse> => {
 };
 
 // 4. Get Image URL (Public - No auth needed)
-export const getImageUrl = async (filename: string): string => {
+export const getImageUrl = async (filename: string): Promise<string> => {
   return `${API_BASE}${filename}`;
-};
-
-// 5. Batch Operations (Utility)
-export const uploadMultipleImages = async (
-  files: File[]
-): Promise<ImageResponse[]> => {
-  const results = await Promise.allSettled(
-    files.map((file) => uploadImage(file))
-  );
-
-  return results
-    .filter(
-      (result): result is PromiseFulfilledResult<ImageResponse> =>
-        result.status === "fulfilled"
-    )
-    .map((result) => result.value);
 };
