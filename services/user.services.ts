@@ -58,3 +58,23 @@ export const getReviewerReviews = async (reviewerId: number) => {
   });
   return reviews;
 };
+
+export const getUserStats = async () => {
+  const totalUsers = await prisma.user.count();
+  const writers = await prisma.user.count({
+    where: {
+      role: "writer",
+    },
+  });
+  const reviewers = await prisma.user.count({
+    where: {
+      role: "reviewer",
+    },
+  });
+
+  return {
+    totalUsers,
+    writers,
+    reviewers,
+  };
+};

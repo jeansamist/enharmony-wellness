@@ -190,3 +190,96 @@ export const deletePostBySlug = async (slug: string) => {
 
   const user = await getAuthenticatedUser();
 };
+
+export const getPostStats = async () => {
+  const totalPosts = await prisma.post.count();
+  const publishedPosts = await prisma.post.count({
+    where: {
+      published: true,
+    },
+  });
+  const pendingPosts = await prisma.post.count({
+    where: {
+      approved: false,
+    },
+  });
+
+  return {
+    totalPosts,
+    publishedPosts,
+    pendingPosts,
+  };
+};
+
+export const getVideosPosts = async () => {
+  const posts = await prisma.post.findMany({
+    where: {
+      video_url: {
+        not: null,
+      },
+      type: "video",
+      published: true,
+    },
+    include: {
+      category: true,
+      user: true,
+      reviews: {
+        include: {
+          user: true,
+        },
+      },
+    },
+    orderBy: {
+      views: "desc",
+    },
+  });
+  return posts;
+};
+
+export const getWriterStats = async (userId: number) => {
+  const totalPosts = await prisma.post.count({
+    where: {
+      user_id: userId,
+    },
+  });
+  const publishedPosts = await prisma.post.count({
+    where: {
+      user_id: userId,
+      published: true,
+    },
+  });
+  const pendingPosts = await prisma.post.count({
+    where: {
+      user_id: userId,
+      approved: false,
+    },
+  });
+
+  const viewsAggregation = await prisma.post.aggregate({
+    where: {
+      user_id: userId,
+    },
+    _sum: {
+      views: true,
+    },
+  });
+  const totalViews = viewsAggregation._sum.views || 0;
+
+  return {
+    totalPosts,
+    publishedPosts,
+    pendingPosts,
+    totalViews,
+  };
+};
+
+export const getReviewerPendingPosts = async () => {
+  const pendingPostsCount = await prisma.post.count({
+    where: {
+      approved: false,
+    },
+  });
+  return {
+    pendingPostsCount,
+  };
+};

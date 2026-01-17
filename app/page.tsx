@@ -4,11 +4,12 @@ import { JustIn } from "@/components/just-in";
 import { Recommended } from "@/components/recommanded";
 import { Subscribe } from "@/components/subscribe";
 import { WatchAndLearn } from "@/components/watch-and-learn";
-import { getJustIn } from "@/services/post.services";
+import { getJustIn, getVideosPosts } from "@/services/post.services";
 
 export default async function Home() {
   // const posts = await prisma.post.findMany({});
   const posts = await getJustIn();
+  const videos = await getVideosPosts();
   return (
     <main className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 xl:space-y-16">
       <Featured />
@@ -24,7 +25,17 @@ export default async function Home() {
         }))}
       />
       <ExploreBy />
-      <WatchAndLearn />
+      <WatchAndLearn
+        posts={videos.slice(0, 1).map((post) => ({
+          category: post.category.name,
+          cover: post.cover,
+          description: post.description,
+          read_time: post.read_time.toString(),
+          slug: post.slug,
+          title: post.title,
+          type: post.type,
+        }))}
+      />
       <Recommended
         posts={posts.slice(5, 7).map((post) => ({
           category: post.category.name,

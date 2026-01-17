@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { FunctionComponent } from "react";
-import { ArticleCard } from "./article-card";
+import { ArticleCard, ArticleCardProps } from "./article-card";
 
-export const WatchAndLearn: FunctionComponent = () => {
+export const WatchAndLearn: FunctionComponent<{
+  posts: ArticleCardProps[];
+}> = ({ posts }) => {
   return (
     <div className="container px-6 mx-auto space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 xl:space-y-16">
       <div className="bg-secondary border border-tertiary/15 p-6 md:p-12 xl:p-24 rounded-2xl sm:rounded-3xl md:rounded-4xl xl:rounded-[48px] space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 xl:space-y-16">
@@ -24,8 +26,18 @@ export const WatchAndLearn: FunctionComponent = () => {
           </Link>
         </div>
         <div className="gap-6 lg:gap-12 grid grid-cols-1 md:grid-cols-2">
-          <ArticleCard type="video" />
-          <ArticleCard type="video" />
+          {posts.map((post) => (
+            <ArticleCard
+              key={post.slug}
+              type={post.type}
+              cover={post.cover}
+              category={post.category}
+              read_time={post.read_time.toString()}
+              description={post.description}
+              title={post.title}
+              slug={post.slug}
+            />
+          ))}
         </div>
       </div>
     </div>
