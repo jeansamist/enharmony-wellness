@@ -23,7 +23,7 @@ export const signInAction = async (formData: FormData) => {
     return { error: "Failed to authenticate. Please try again." };
   }
 
-  const signInLink = `http://localhost:3000/api/auth/sign-in?email=${encodeURIComponent(
+  const signInLink = `${process.env.BACKEND_URL}/api/auth/sign-in?email=${encodeURIComponent(
     email
   )}&code=${encodeURIComponent(pass)}`;
   const signInEmailSent = await sendSignInEmail(email, signInLink);

@@ -1,11 +1,13 @@
 "use server";
 import { createCategorySchema, createPostSchema } from "@/schemas/post.schemas";
 import { isCurrentUserAdmin } from "@/services/auth.services";
+import { sendReviewNotificationEmail } from "@/services/mail.services";
 import {
   createCategory,
   createPost,
   createReview,
 } from "@/services/post.services";
+import { getUserById } from "@/services/user.services";
 import { redirect, RedirectType } from "next/navigation";
 import { canCreatePost } from "./../services/auth.services";
 
@@ -55,6 +57,14 @@ export const createPostAction = async (formData: FormData) => {
     post_id: Number(post.id),
     user_id: validatedFields.data.reviewer,
   });
+
+  const reviewer = await getUserById(validatedFields.data.reviewer);
+  if (reviewer) {
+    const baseUrl = process.env.BACKEND_URL || "http://localhost:3000";
+    const link = `${baseUrl}/app/posts/${post.slug}/edit`;
+    await sendReviewNotificationEmail(reviewer.email, post.title, link);
+  }
+
   redirect("/app/posts", RedirectType.push);
 };
 export const createCategoryAction = async (formData: FormData) => {
