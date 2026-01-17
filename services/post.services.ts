@@ -108,7 +108,6 @@ export const getJustIn = async () => {
       },
     },
     orderBy: {
-      created_at: "desc",
       views: "desc",
     },
   });
@@ -133,7 +132,6 @@ export const getPostsByCategory = async (category: string) => {
       },
     },
     orderBy: {
-      created_at: "desc",
       views: "desc",
     },
   });

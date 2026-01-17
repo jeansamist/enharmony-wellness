@@ -1,10 +1,6 @@
 "use client";
-import {
-  ArrowRightIcon,
-  PencilSimpleIcon,
-  PlayIcon,
-  TrashIcon,
-} from "@phosphor-icons/react";
+import { User } from "@/generated/prisma/client";
+import { PencilSimpleIcon, PlayIcon, TrashIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FunctionComponent } from "react";
@@ -19,6 +15,7 @@ export type PostCardProps = {
   slug: string;
   author: string;
   reviewer: string;
+  currentUser: User | null;
 };
 
 export const PostCard: FunctionComponent<PostCardProps> = ({
@@ -31,6 +28,7 @@ export const PostCard: FunctionComponent<PostCardProps> = ({
   slug,
   author,
   reviewer,
+  currentUser,
 }) => {
   return (
     <div className="">
@@ -89,13 +87,20 @@ export const PostCard: FunctionComponent<PostCardProps> = ({
           />
           <b>Reviewer :</b> {reviewer}
         </div>
-        <Link
-          href={`/articles/${slug}`}
-          className="flex items-center leading-none underline font-semibold gap-2 text-primary"
-        >
-          Read
-          <ArrowRightIcon />
-        </Link>
+        <div className="flex gap-4">
+          <Link
+            href={`/articles/${slug}`}
+            className="flex items-center leading-none underline font-semibold gap-2 text-primary"
+          >
+            Read
+          </Link>
+          <Link
+            href={`/app/posts/${slug}/publish`}
+            className="flex items-center leading-none underline font-semibold gap-2 text-primary"
+          >
+            Publish
+          </Link>
+        </div>
       </div>
     </div>
   );
