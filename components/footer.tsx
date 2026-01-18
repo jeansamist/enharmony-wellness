@@ -23,7 +23,7 @@ export const Footer: FunctionComponent = () => {
                   className="w-60 h-auto" // Responsive logo sizing
                 />
               </Link>
-              <div className="text-xl font-bold leading-normal">
+              <div className="md:text-xl mt-4 font-bold leading-normal">
                 Rethinking health, naturally
               </div>
               <ul className="list-disc space-y-4 list-outside pl-4">
@@ -71,31 +71,35 @@ export const Footer: FunctionComponent = () => {
             </div>
             <div className="space-y-4 w-full">
               <div>
-                <div className="text-3xl leading-normal font-bold">
+                <div className="text-2xl md:text-3xl leading-normal font-bold">
                   Newsletter
                 </div>
-                <div className="leading-normal opacity-70 text-xl text-balance">
+                <div className="leading-normal opacity-70 md:text-lg text-balance">
                   Explore simple, holistic ways to support your wellbeing and
                   live more consciously — delivered straight to your inbox.
                 </div>
               </div>
-              <div className="flex gap-4 max-w-xl w-full">
+              <div className="flex max-w-xl w-full">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="px-6 py-4 h-12 rounded-full font-semibold hover:opacity-90 transition-opacity flex items-center justify-center leading-none w-full text-secondary bg-secondary/15 border border-secondary/40 focus:outline-none focus:ring-2 focus:ring-secondary/50 placeholder:text-secondary/70"
+                  className="px-6 py-4 h-12 rounded-full rounded-r-none font-semibold hover:opacity-90 transition-opacity flex items-center justify-center leading-none w-full text-secondary bg-secondary/15 border border-secondary/40 focus:outline-none focus:ring-2 focus:ring-secondary/50 placeholder:text-secondary/70"
                 />
-                <Button variant="primary" className="text-tertiary">
-                  Sign up
+                <Button
+                  variant="primary"
+                  className="text-secondary rounded-l-none"
+                >
+                  Subscribe
                 </Button>
               </div>
             </div>
           </div>
           <div className="flex gap-4"></div>
           <div className="opacity-70 text-sm">
-            © Enharmony Wellness. A media brand by Enharmony. <br /> Content on Enharmony Wellness is
-            for educational purposes only. Some articles are medically reviewed
-            and are not intended as medical advice, diagnosis, or treatment.
+            © Enharmony Wellness. A media brand by Enharmony. <br /> Content on
+            Enharmony Wellness is for educational purposes only. Some articles
+            are medically reviewed and are not intended as medical advice,
+            diagnosis, or treatment.
           </div>
         </div>
       </footer>

@@ -283,3 +283,25 @@ export const getReviewerPendingPosts = async () => {
     pendingPostsCount,
   };
 };
+
+export const getLatestPost = async () => {
+  const post = await prisma.post.findFirst({
+    where: {
+      published: true,
+    },
+
+    include: {
+      category: true,
+      user: true,
+      reviews: {
+        include: {
+          user: true,
+        },
+      },
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+  return post;
+};

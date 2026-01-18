@@ -1,5 +1,4 @@
 import { ArticleCard, ArticleCardProps } from "@/components/article-card";
-import Link from "next/link";
 import { FunctionComponent } from "react";
 
 export const JustIn: FunctionComponent<{ posts: ArticleCardProps[] }> = ({
@@ -23,26 +22,6 @@ export const JustIn: FunctionComponent<{ posts: ArticleCardProps[] }> = ({
             slug={post.slug}
           />
         ))}
-        <div>
-          <div className="p-6 md:p-8 rounded-4xl border border-tertiary/15 bg-secondary space-y-2 flex justify-items-center flex-col">
-            <div>
-              <div className="text-3xl leading-normal font-bold">
-                Ongoing Series
-              </div>
-              <div className="leading-normal opacity-70 text-xl">
-                A daily exploration of healing practices, reflections, and
-                habits — shared through short videos and deeper written
-                insights.
-              </div>
-            </div>
-            <Link
-              href="/articles/the-art-of-daily-healing"
-              className="flex items-center leading-none underline font-semibold gap-2 text-primary"
-            >
-              Read today’s entry
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );

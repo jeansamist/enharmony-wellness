@@ -29,7 +29,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
   };
   const sizeClasses = {
     sm: "px-4 py-2 h-10 text-sm",
-    md: "px-6 py-4 h-12 text-base",
+    md: "px-4 md:px-6 py-4 h-12 text-sm md:text-base",
     lg: "px-8 py-6 h-14 text-lg",
     xl: "px-10 py-8 h-16 text-xl",
     "icon-sm": "w-10 h-10 text-sm",

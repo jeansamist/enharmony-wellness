@@ -9,6 +9,7 @@ import {
   PencilIcon,
   ThumbsUpIcon,
   UsersThreeIcon,
+  EnvelopeSimpleIcon,
 } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,6 +40,13 @@ export const Sidebar: FunctionComponent = () => {
             href: "/app/users",
             label: "Users management",
             icon: UsersThreeIcon,
+          }
+        : null,
+      user.role === "admin"
+        ? {
+            href: "/app/newsletter",
+            label: "Newsletter",
+            icon: EnvelopeSimpleIcon,
           }
         : null,
       { href: "/app/settings", label: "Settings", icon: GearIcon },

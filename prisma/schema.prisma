@@ -69,3 +69,46 @@ enum PostType {
   text
   video
 }
+
+model Newsletter {
+  id         BigInt   @id @default(autoincrement())
+  email      String   @unique
+  segments   NewsletterSegment[]
+  events     CampaignEvent[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model NewsletterSegment {
+  id          BigInt       @id @default(autoincrement())
+  name        String       @unique
+  subscribers Newsletter[]
+  campaigns   Campaign[]
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+}
+
+model Campaign {
+  id          BigInt            @id @default(autoincrement())
+  name        String
+  subject     String
+  content     String? // Optional: store the HTML content sent
+  post_id     BigInt?
+  segment_id  BigInt?
+  segment     NewsletterSegment? @relation(fields: [segment_id], references: [id])
+  events      CampaignEvent[]
+  sent_at     DateTime          @default(now())
+  created_at  DateTime          @default(now())
+  updated_at  DateTime          @updatedAt
+}
+
+model CampaignEvent {
+  id            BigInt     @id @default(autoincrement())
+  campaign_id   BigInt
+  campaign      Campaign   @relation(fields: [campaign_id], references: [id])
+  subscriber_id BigInt
+  subscriber    Newsletter @relation(fields: [subscriber_id], references: [id])
+  type          String     // "open", "click"
+  metadata      String?    // URL for clicks, etc.
+  created_at    DateTime   @default(now())
+}
