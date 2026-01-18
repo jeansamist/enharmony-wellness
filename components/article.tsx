@@ -98,8 +98,8 @@ export const Article: FunctionComponent<ArticleProps> = ({
   });
   if (!editor) return null;
   return (
-    <div className="container px-6 mx-auto flex flex-col">
-      <div className="flex-1 p-6 flex flex-col xl:flex-row gap-6 overflow-auto">
+    <div className="container px-2 lg:px-6 mx-auto flex flex-col">
+      <div className="flex-1 px-2 lg:p-6 flex flex-col xl:flex-row gap-6 overflow-auto">
         <div className="flex-1">
           <div
             style={{
@@ -107,7 +107,7 @@ export const Article: FunctionComponent<ArticleProps> = ({
             }}
             className="bg-secondary flex flex-col justify-center items-center gap-6 rounded-3xl aspect-video "
           ></div>
-          <div className="p-6 space-y-6">
+          <div className="p-2 lg:p-6 space-y-6">
             <div className="text-3xl leading-normal font-bold w-full">
               {title}
             </div>
