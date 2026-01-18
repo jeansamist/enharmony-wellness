@@ -7,14 +7,20 @@ import { Label } from "../ui/label";
 import { Select } from "../ui/select";
 
 export const CreateUserForm: FunctionComponent = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const handleSubmit = async (formData: FormData) => {
+    setIsLoading(true);
     setError(null);
-    const response = await createUserAction(formData);
-    if (response?.error) {
-      setError(response.error);
-      return;
+    try {
+      const response = await createUserAction(formData);
+      if (response?.error) {
+        setError(response.error);
+        return;
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -37,7 +43,7 @@ export const CreateUserForm: FunctionComponent = () => {
           ]}
         />
       </div>
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" loading={isLoading}>
         Continue
       </Button>
       {error && <div className="text-red-500 text-sm text-center">{error}</div>}

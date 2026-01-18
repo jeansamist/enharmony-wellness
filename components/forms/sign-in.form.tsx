@@ -31,7 +31,7 @@ export const SignInForm: FunctionComponent = () => {
         <Label htmlFor="email">Email Address</Label>
         <Input name="email" placeholder="Enter your email" />
       </div>
-      <Button type="submit" disabled={isLoading} className="w-full">
+      <Button type="submit" disabled={isLoading} loading={isLoading} className="w-full">
         Continue
       </Button>
       {error && <div className="text-red-500 text-sm text-center">{error}</div>}

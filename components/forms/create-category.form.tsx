@@ -6,14 +6,20 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
 export const CreateCategoryForm: FunctionComponent = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const handleSubmit = async (formData: FormData) => {
+    setIsLoading(true);
     setError(null);
-    const response = await createCategoryAction(formData);
-    if (response?.error) {
-      setError(response.error);
-      return;
+    try {
+      const response = await createCategoryAction(formData);
+      if (response?.error) {
+        setError(response.error);
+        return;
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -22,7 +28,7 @@ export const CreateCategoryForm: FunctionComponent = () => {
         <Label htmlFor="name">Full Name</Label>
         <Input name="name" placeholder="Enter the category name" />
       </div>
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" loading={isLoading}>
         Create the new category
       </Button>
       {error && <div className="text-red-500 text-sm text-center">{error}</div>}

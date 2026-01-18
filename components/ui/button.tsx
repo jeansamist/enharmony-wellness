@@ -1,4 +1,7 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { CircleNotchIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { FunctionComponent } from "react";
 
@@ -8,6 +11,7 @@ export type ButtonProps = {
   href?: string;
   className?: string;
   size?: "sm" | "md" | "lg" | "xl" | "icon-sm" | "icon-md" | "icon-lg";
+  loading?: boolean;
   [key: string]: unknown;
 };
 
@@ -17,6 +21,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
   href,
   className,
   size = "md",
+  loading = false,
   ...props
 }) => {
   const variantClasses = {
@@ -62,8 +67,12 @@ export const Button: FunctionComponent<ButtonProps> = ({
         sizeClasses[size],
         className
       )}
+      disabled={loading || (props.disabled as boolean)}
       {...props}
     >
+      {loading ? (
+        <CircleNotchIcon weight="bold" className="animate-spin mr-2" />
+      ) : null}
       {children}
     </button>
   );

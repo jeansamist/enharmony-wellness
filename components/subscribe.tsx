@@ -62,8 +62,9 @@ export const Subscribe: FunctionComponent = () => {
                 onClick={handleSubscribe}
                 className="rounded-l-none "
                 disabled={status === "loading" || status === "success"}
+                loading={status === "loading"}
               >
-                {status === "loading" ? "..." : "Subscribe"}
+                Subscribe
               </Button>
             </div>
             {message && (
