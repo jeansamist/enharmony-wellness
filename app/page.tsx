@@ -19,7 +19,7 @@ export default async function Home() {
     <main className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 xl:space-y-16">
       <Featured post={lastPost} />
       <JustIn
-        posts={posts.slice(0, 4).map((post) => ({
+        posts={posts.slice(0, 6).map((post) => ({
           category: post.category.name,
           cover: post.cover,
           description: post.description,
@@ -31,7 +31,7 @@ export default async function Home() {
       />
       <ExploreBy />
       <WatchAndLearn
-        posts={videos.slice(0, 1).map((post) => ({
+        posts={videos.slice(0, 2).map((post) => ({
           category: post.category.name,
           cover: post.cover,
           description: post.description,
@@ -42,7 +42,7 @@ export default async function Home() {
         }))}
       />
       <Recommended
-        posts={posts.slice(5, 7).map((post) => ({
+        posts={posts.slice(6, 9).map((post) => ({
           category: post.category.name,
           cover: post.cover,
           description: post.description,
