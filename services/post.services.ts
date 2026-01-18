@@ -97,6 +97,7 @@ export const getJustIn = async () => {
   const posts = await prisma.post.findMany({
     where: {
       published: true,
+      type: "text",
     },
     include: {
       category: true,
