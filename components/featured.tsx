@@ -91,12 +91,12 @@ export const Featured: FunctionComponent<{ post: Post | null }> = ({
             width={1920}
             height={1080}
             alt="EnHarmony Wellness Header Image"
-            className="w-full min-h-125 h-full z-0 object-cover object-center"
+            className="w-full aspect-2/3 sm:aspect-3/2 lg:aspect-video min-h-125 h-auto z-0 object-cover object-center"
           />
         </div>
       )}
       <div>
-        <div className="lg:max-w-xl w-full p-6 md:p-8 rounded-4xl border border-tertiary/15 bg-secondary/15 space-y-4 flex justify-items-center flex-col">
+        <div className="relative lg:max-w-xl w-full p-6 md:p-8 rounded-4xl border border-tertiary/15 bg-secondary/15 space-y-4 flex justify-items-center flex-col">
           <Image
             src="/ongoing.png"
             width={480}
@@ -104,9 +104,13 @@ export const Featured: FunctionComponent<{ post: Post | null }> = ({
             alt="ongoing"
             className="w-full rounded-3xl aspect-video object-cover"
           />
+
+          <span className="absolute left-14 top-14 flex h-6 w-6">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex h-6 w-6 rounded-full bg-primary"></span>
+          </span>
           <div className="space-y-2">
-            <div className="text-3xl leading-normal font-bold">Ongoing</div>
-            <div className="leading-normal opacity-70 md:text-xl">
+            <div className="leading-8 opacity-70 md:text-xl">
               A daily exploration of healing practices, reflections, and habits
               — shared through short videos and deeper written insights
             </div>
