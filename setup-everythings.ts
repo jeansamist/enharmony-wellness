@@ -13,6 +13,12 @@ const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=2070&auto=format&fit=crop", // Morning Coffee/Journaling
   "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2031&auto=format&fit=crop", // Meditation/Nature
   "https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&w=2070&auto=format&fit=crop", // Yoga Pose
+  "https://images.unsplash.com/photo-1518101645466-7795885ff8f8?q=80&w=2070&auto=format&fit=crop", // Peaceful Lake
+  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop", // Forest
+  "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=2053&auto=format&fit=crop", // Veggie Bowl
+  "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop", // Spa Stones
+  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop", // Gym/Workout
+  "https://images.unsplash.com/photo-1553530666-ba11a7da3888?q=80&w=2070&auto=format&fit=crop", // Smoothies
 ];
 
 const MARKDOWN_CONTENT = `
@@ -167,7 +173,7 @@ async function main() {
       title: "Yoga for Inner Peace",
       slug: "yoga-for-inner-peace",
       category: "wellness",
-      cover: SAMPLE_IMAGES[0],
+      cover: SAMPLE_IMAGES[5],
       content: MARKDOWN_CONTENT,
       type: "video" as const,
       video_url: "https://www.youtube.com/watch?v=v7AYKMP6rOE",
@@ -176,7 +182,7 @@ async function main() {
       title: "Meditation Masterclass",
       slug: "meditation-masterclass",
       category: "holistic-care",
-      cover: SAMPLE_IMAGES[3],
+      cover: SAMPLE_IMAGES[6],
       content: LONG_MARKDOWN_CONTENT_2,
       type: "video" as const,
       video_url: "https://www.youtube.com/watch?v=inpok4MKVLM",
@@ -185,7 +191,7 @@ async function main() {
       title: "The Power of Plant-Based Eating",
       slug: "the-power-of-plant-based-eating",
       category: "nutrition-and-nature",
-      cover: SAMPLE_IMAGES[1],
+      cover: SAMPLE_IMAGES[7],
       content: MARKDOWN_CONTENT,
       type: "text" as const,
     },
@@ -193,10 +199,28 @@ async function main() {
       title: "Deep Breathing Techniques",
       slug: "deep-breathing-techniques",
       category: "wellness",
-      cover: SAMPLE_IMAGES[4],
+      cover: SAMPLE_IMAGES[8],
       content: LONG_MARKDOWN_CONTENT_2,
       type: "video" as const,
       video_url: "https://www.youtube.com/watch?v=tybOi4hjZFQ",
+    },
+    {
+      title: "Mindful Strength Training",
+      slug: "mindful-strength-training",
+      category: "wellness",
+      cover: SAMPLE_IMAGES[9],
+      content: MARKDOWN_CONTENT,
+      type: "video" as const,
+      video_url: "https://www.youtube.com/watch?v=8mG_7XmN_YI",
+    },
+    {
+      title: "Revitalizing Green Smoothies",
+      slug: "revitalizing-green-smoothies",
+      category: "nutrition-and-nature",
+      cover: SAMPLE_IMAGES[10],
+      content: LONG_MARKDOWN_CONTENT_2,
+      type: "video" as const,
+      video_url: "https://www.youtube.com/watch?v=9_pYvPclXN8",
     },
   ];
 
